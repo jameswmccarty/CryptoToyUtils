@@ -112,8 +112,8 @@ unsigned char ascii2hex(unsigned char input) {
 }
 
 void hextobase64(unsigned char *hexstr) {
-	static int b64_idx = 5;
-	static unsigned char b64_out = 0x00;
+	int b64_idx = 5;
+	unsigned char b64_out = 0x00;
 	unsigned char tmp;
 
 	int inputidx = 0;
@@ -144,8 +144,8 @@ void hextobase64(unsigned char *hexstr) {
 }
 
 void base64tohex(unsigned char *b64str) {
-	static int hex_idx = 7;
-	static unsigned char hex_out = 0x00;
+	int hex_idx = 7;
+	unsigned char hex_out = 0x00;
 	unsigned char tmp;
 
 	int inputidx = 0;
