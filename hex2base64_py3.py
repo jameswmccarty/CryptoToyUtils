@@ -78,13 +78,14 @@ def rawtobase16(instr):
 def rawtobase64(instr):
 	return hextobase64(rawtobase16(instr))
 
-#Example
-demohexstr = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
-demob64str = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t"
-temp = hextobase64(demohexstr)
-print(temp)
-print(base64tohex(temp))
-print(base16toraw(demohexstr))
-print(base64toraw(demob64str))
-print(rawtobase16(base16toraw(demohexstr)))
-print(rawtobase64(base64toraw(demob64str)))
+#Examples
+if __name__ == "__main__":
+	demohexstr = "49276d206b696c6c696e6720796f757220627261696e206c696b65206120706f69736f6e6f7573206d757368726f6f6d"
+	demob64str = "SSdtIGtpbGxpbmcgeW91ciBicmFpbiBsaWtlIGEgcG9pc29ub3VzIG11c2hyb29t"
+	temp = hextobase64(demohexstr)
+	print(temp)
+	print(base64tohex(temp))
+	print(base16toraw(demohexstr))
+	print(base64toraw(demob64str))
+	print(rawtobase16(base16toraw(demohexstr)))
+	print(rawtobase64(base64toraw(demob64str)))

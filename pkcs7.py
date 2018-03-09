@@ -76,11 +76,12 @@ def clearPad(padtext, blksize):
 	return outtext
 
 """ Testing functions and examples below """
-#Pad a single block test
-plaintext = "FOOBAR FIZZ BUZZ"
-print pkcs7pad(plaintext, 20)
+if __name__ == "__main__":
+	#Pad a single block test
+	plaintext = "FOOBAR FIZZ BUZZ"
+	print pkcs7pad(plaintext, 20)
 
-plaintext2 = "The quick brown fox jumps over the lazy programmer."
-print padInput(plaintext2, 16)
-padtext = padInput(plaintext2, 16)
-print clearPad(padtext, 16)
+	plaintext2 = "The quick brown fox jumps over the lazy programmer."
+	print padInput(plaintext2, 16)
+	padtext = padInput(plaintext2, 16)
+	print clearPad(padtext, 16)

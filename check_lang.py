@@ -75,14 +75,14 @@ def testForEnglish(rawbytes):
 	return normalizeAndCheck(histogram)
 
 #Testing below
+if __name__ == "__main__":
+	b64input = "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IHByb2dyYW1tZXIu"
+	ASCIIinput = "The quick brown fox jumps over the lazy programmer."
 
-b64input = "VGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IHByb2dyYW1tZXIu"
-ASCIIinput = "The quick brown fox jumps over the lazy programmer."
 
-
-print testForEnglish(b64input)
-print testForEnglish(ASCIIinput)
-print testForEnglish("")
+	print testForEnglish(b64input)
+	print testForEnglish(ASCIIinput)
+	print testForEnglish("")
 
 
 	
