@@ -10,13 +10,28 @@ Output is a hex encoded string.
 
 import base64
 
+#Returns: 	raw string of rawbytes XOR pad (repeating)
+#Inputs: 	rawbytes - ASCII string to encode
+#			pad - One or more ASCII chars
+def rawXORpad(rawbytes, pad):
+	padidx = 0;
+	output = ""
+	if len(str(pad)) == 0:
+		print "Error: pad cannot be zero length"
+		exit()
+	for byte in rawbytes:
+		output += chr(ord(byte) ^ ord(pad[padidx]))
+		padidx += 1
+		padidx %= len(pad)
+	return output
+
 #Returns: 	HEX encoded string of rawbytes XOR pad (repeating)
 #Inputs: 	rawbytes - ASCII string to encode
 #			pad - One or more ASCII chars
 def applyXORpad(rawbytes, pad):
 	padidx = 0;
 	output = ""
-	if len(pad) == 0:
+	if len(str(pad)) == 0:
 		print "Error: pad cannot be zero length"
 		exit()
 	for byte in rawbytes:
@@ -25,10 +40,12 @@ def applyXORpad(rawbytes, pad):
 		padidx %= len(pad)
 	return base64.b16encode(output)
 
-plaintext = "The quick brown fox jumps over the lazy programmer."
-key = "ABC"
+#Testing below
+if __name__ == "__main__":
+	plaintext = "The quick brown fox jumps over the lazy programmer."
+	key = "ABC"
 
-print applyXORpad(plaintext, key)
+	print applyXORpad(plaintext, key)
 
-#Verify
-#base64.b16decode(applyXORpad(base64.b16decode(applyXORpad(plaintext, key)), key))
+	#Verify
+	print base64.b16decode(applyXORpad(base64.b16decode(applyXORpad(plaintext, key)), key))
