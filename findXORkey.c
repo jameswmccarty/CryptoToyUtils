@@ -200,6 +200,7 @@ int hamming_dist(char *str1, char *str2, int len) {
 int check_keysize(char *instr, int guess) {
 	char *blk1;
 	char *blk2;
+	int dist = 0;
 
 	int idx, glblidx = 0;
 
@@ -221,10 +222,11 @@ int check_keysize(char *instr, int guess) {
 		blk2[idx] = instr[glblidx++];
 
 	/* return hamming_dist(&blk1[0], &blk2[0]); */
-	return hamming_dist(&blk1[0], &blk2[0], guess);
+	dist = hamming_dist(&blk1[0], &blk2[0], guess);
 
 	free(blk1);
 	free(blk2);
+	return dist;
 
 }
 
