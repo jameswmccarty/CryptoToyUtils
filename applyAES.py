@@ -20,9 +20,11 @@ def decryptAES_ECB(stream, key):
 		block  = stream[0:len(key)]
 		stream = stream[len(key):]
 		plain += decryptAES_ECB_blk(block, key)
+	plain = pkcs7.clearPad(plain, 16)
 	return plain
 
 def encryptAES_ECB(stream, key):
+	stream = pkcs7.padInput(stream, 16)	
 	cipher = ""
 	while stream != "":
 		block  = stream[0:len(key)]
@@ -40,9 +42,11 @@ def decryptAES_CBC(stream, key, iv):
 		out   = xorlib.rawXORpad(out, cipherblk)
 		cipherblk = block
 		plain += out
+	plain = pkcs7.clearPad(plain, 16)
 	return plain
 
 def encryptAES_CBC(stream, key, iv):
+	stream = pkcs7.padInput(stream, 16)	
 	cipherblk = iv
 	ciphertxt = ""
 	while stream != "":
@@ -64,12 +68,10 @@ if __name__ == "__main__":
 	intext = infile.read()
 	infile.close()
 	
-	intext = pkcs7.padInput(intext, 16)	
 	cipher = encryptAES_ECB(intext, aes_key)
 	print "Encrypted with ECB Mode."
 	print base64.b64encode(cipher)
 	plain = decryptAES_ECB(cipher, aes_key)
-	plain = pkcs7.clearPad(intext, 16)
 	print plain
 	#End of ECB Mode Test
 
@@ -78,13 +80,11 @@ if __name__ == "__main__":
 	infile = open("tests/trial_text.txt", "r")
 	intext = infile.read()
 	infile.close()
-	intext = pkcs7.padInput(intext, 16)	
 
 	cipher = encryptAES_CBC(intext, aes_key, iv)
 	print "Encrypted with CBC Mode."
 	print base64.b64encode(cipher)
 	plain = decryptAES_CBC(cipher, aes_key, iv)
-	plain = pkcs7.clearPad(plain, 16)
 	print plain
 	#End of CBC Mode Test
 
