@@ -70,7 +70,7 @@ def clearPad(padtext, blksize):
 	for i in range(blksize-1, blksize-byteval-1, -1):
 		if byteval != ord(lastblock[i]): #Improperly padded
 			print "Error: File was improperly padded."
-			exit()
+			raise ValueError('File padding is incorrect.')
 	lastblock = lastblock[0:blksize-byteval] #strip padding
 	outtext += lastblock
 	return outtext
