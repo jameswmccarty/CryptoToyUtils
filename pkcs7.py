@@ -79,9 +79,18 @@ def clearPad(padtext, blksize):
 if __name__ == "__main__":
 	#Pad a single block test
 	plaintext = "FOOBAR FIZZ BUZZ"
+	brokenblock = "0123456789AB"
+	brokenblock += chr(5)
+	brokenblock += chr(4)
+	brokenblock += chr(4)
+	brokenblock += chr(4)
 	print pkcs7pad(plaintext, 20)
 
 	plaintext2 = "The quick brown fox jumps over the lazy programmer."
 	print padInput(plaintext2, 16)
 	padtext = padInput(plaintext2, 16)
 	print clearPad(padtext, 16)
+	try:
+		print clearPad(brokenblock, 16)
+	except ValueError:
+		print "Failure."
