@@ -20,11 +20,13 @@ def decryptAES_ECB(stream, key):
 		block  = stream[0:len(key)]
 		stream = stream[len(key):]
 		plain += decryptAES_ECB_blk(block, key)
-	plain = pkcs7.clearPad(plain, 16)
+	decoder = pkcs7.PKCS7Encoder()
+	plain = decoder.decode(plain)
 	return plain
 
 def encryptAES_ECB(stream, key):
-	stream = pkcs7.padInput(stream, 16)	
+	encoder = pkcs7.PKCS7Encoder()
+	stream = encoder.encode(stream)
 	cipher = ""
 	while stream != "":
 		block  = stream[0:len(key)]
@@ -42,11 +44,13 @@ def decryptAES_CBC(stream, key, iv):
 		out   = xorlib.rawXORpad(out, cipherblk)
 		cipherblk = block
 		plain += out
-	plain = pkcs7.clearPad(plain, 16)
+	decoder = pkcs7.PKCS7Encoder()
+	plain = decoder.decode(plain)
 	return plain
 
 def encryptAES_CBC(stream, key, iv):
-	stream = pkcs7.padInput(stream, 16)	
+	encoder = pkcs7.PKCS7Encoder()
+	stream = encoder.encode(stream)
 	cipherblk = iv
 	ciphertxt = ""
 	while stream != "":
