@@ -2,6 +2,7 @@
 
 #depends pyopenssl
 from Crypto.Cipher import AES
+from struct import pack
 import base64
 import applyXOR as xorlib
 import pkcs7
@@ -62,10 +63,30 @@ def encryptAES_CBC(stream, key, iv):
 		ciphertxt += inpt
 	return ciphertxt
 
+def encryptAES_CTR(pt, key, nonce):
+	ct = b''
+	ks = b''
+	nonce = bytearray(nonce)
+	counter = 0
+	while True:
+		count = bytearray(pack('l', counter))
+		ks = encryptAES_ECB_blk(str(nonce+count), key)
+		counter += 1
+		for byte in ks:
+			if len(pt) > 0:
+				ct += chr(ord(byte) ^ ord(pt[0]))
+				pt = pt[1:]
+			else:
+				return ct
+
+def decryptAES_CTR(ct, key, nonce):
+	return encryptAES_CTR(ct, key, nonce)
+
 if __name__ == "__main__":
 
 	aes_key = "FOO BAR FIZZBUZZ"	
 	iv = chr(0) * 16
+	nonce = chr(0) * 8
 
 	#Test for ECB Mode 
 	infile = open("tests/trial_text.txt", "r")
@@ -92,4 +113,14 @@ if __name__ == "__main__":
 	print plain
 	#End of CBC Mode Test
 
+	#Test for CTR Mode
+	infile = open("tests/trial_text.txt", "r")
+	intext = infile.read()
+	infile.close()
 
+	cipher = encryptAES_CTR(intext, aes_key, nonce)
+	print "Encrypted with CTR Mode."
+	print base64.b64encode(cipher)
+	plain = decryptAES_CTR(cipher, aes_key, nonce)
+	print plain
+	#End of CTR Mode Test
