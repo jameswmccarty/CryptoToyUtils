@@ -112,6 +112,7 @@ def rawXORpad(rawbytes, pad):
 def HMAC_SHA1(key, message):
 	if len(key) > 64:
 		key = SHA1(key).state()         # key is the hash of the key value
+		key = base64.b16decode(key.upper()) # require raw bytes
 	key += chr(0) * (64-len(key))		# pad to 64 bytes with zeros to the right
 	o_key_pad = rawXORpad(key, chr(92)) # 0x5C
 	i_key_pad = rawXORpad(key, chr(54)) # 0x36
