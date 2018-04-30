@@ -39,7 +39,7 @@ class SHA1:
 			self.ml = length
 		# append the bit '1' to the message by adding 0x80
 		# if the message length is a multiple of 8-bits
-		m += chr(0x80)
+		m += b'0x80'
 		# append 0 <= k <= 512 bits '0' such that the
 		# resulting message lenght in bits is congruent to
 		# -64 === 448 (mod 512)
