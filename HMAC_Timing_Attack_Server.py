@@ -26,7 +26,7 @@ class FileValidator:
 		for i in range(0, len(usig_)):
 			if ssig_[i] != usig_[i]:
 				return False
-			time.sleep(0.05) # whoops!
+			time.sleep(0.005) # whoops!
 		return True # sig is valid
 
 	# for debugging, generate valid server keys

@@ -19,6 +19,10 @@ Keys that are more correct take longer to compare.
 
 Start with a base key.  Try combinations for the first byte.  See which one took the longest.
 Add that value to our key.  Repeat until HTTP 200 is recieved from server.
+
+Update: Perform several successive tests with each key value, and sum the results.
+We expect that the timing difference will be very small, so take repeat samples
+to magnify the error.
 """
 
 servername = 'localhost'
@@ -44,15 +48,19 @@ def solve_sig(filename):
 
 	best_time = 0.00
 
+	MAXTRIALS = 10 # multiple tests (since timing error is small) 
+
 	while True:
 		best = ''
 		for char in valid:
 			trial = sig + char
 			print "Testing sig: " + pad(trial)
-			start = time.time()
-			status = urllib.urlopen(build_url(filename,pad(trial)))
-			stop = time.time()
-			delta = stop-start
+			delta = 0.0
+			for i in xrange(MAXTRIALS):
+				start = time.time()
+				status = urllib.urlopen(build_url(filename,pad(trial)))
+				stop = time.time()
+				delta += stop-start
 			#print delta
 			code = status.getcode()
 			if code == None:
