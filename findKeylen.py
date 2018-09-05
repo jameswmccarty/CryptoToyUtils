@@ -72,6 +72,7 @@ if __name__ == "__main__":
 	infile = open("tests/xorpuzzle.txt", "r")
 	line = infile.read()
 	totaltext = base64.b16decode(line.strip())
+	print line
 	guess = guessKeysize(totaltext, 40)
 	print "Best key length: " + str(guess)
 	key = rebuildKey(totaltext, guess)
