@@ -15,7 +15,7 @@ def accept_keyword(word):
 		try:
 			t.remove(letter[0])
 		except:
-			print("Count not filter", letter)
+			print("Could not filter:", letter)
 	new_alpha += t
 	if(len(new_alpha) > 26):
 		print("Invalid Keyword")
